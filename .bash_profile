@@ -19,3 +19,9 @@ alias gitpush='git push origin $(getbranch)'
 alias npmtest='cat package.json | grep "test"'
 alias npmstart='cat package.json | grep "start"'
 alias npmdev='cat package.json | grep "dev"'
+
+# Git branch in prompt.
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+export PS1="\u@\h \W\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
